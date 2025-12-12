@@ -1,0 +1,8 @@
+src/u2net_full.onnx
+save_weights/model_best.pth
+*.onnx
+*.pth
+src/u2net_full.onnx
+save_weights/model_best.pth
+*.onnx
+*.pth
