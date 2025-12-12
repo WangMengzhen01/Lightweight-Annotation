@@ -40,8 +40,8 @@
    - **转换**：将生成的 JSON 文件转换为二进制掩码 (Binary Masks)。
 ### 2. 尺寸调整与离线增强
    原始图像可经过以下步骤进行扩充：
-   -随机缩放、随机裁剪和水平翻转。
-   -按 7:2:1 的比例随机划分为训练集、验证集和测试集。
+   - 随机缩放、随机裁剪和水平翻转。
+   - 按 7:2:1 的比例随机划分为训练集、验证集和测试集。
 ### 3. 数据集存放结构
 请将处理好的数据按 DUTS 格式存放：
 ```text
@@ -70,8 +70,8 @@ DUTS-TE/
 python train.py --data-path ./DUTS-TR --batch-size 4 --epochs 400
 ```
 ### 预训练权重
--Baseline 权重：可通过上述脚本复现，或访问 U2Net官方GitHub。
--改进模型权重：可通过联系作者获取学术授权。
+- Baseline 权重：可通过上述脚本复现，或访问 U2Net官方GitHub。
+- 改进模型权重：可通过联系作者获取学术授权。
 
 ## 🎯 推理与轻量化标签生成 (Inference & Label Generation)
 该部分分为两步：首先生成分割掩码，然后将其转换为轻量化多边形标签。
@@ -82,16 +82,16 @@ python test.py --model saved_models/model_best.pth --input test_images/ --output
 ```
 ### 2. 生成轻量化标签 (DP & BAS)
 使用 label_gen.py 将分割图转换为 JSON 标注文件。
-**消融研究**：该脚本包含 USE_DP 和 USE_BAS 开关，可独立验证不同后处理策略的效果。
+- **消融研究**：该脚本包含 USE_DP 和 USE_BAS 开关，可独立验证不同后处理策略的效果。
 ```text
 -python label_gen.py --input results/masks/ --output results/jsons/
 ```
--通过调整脚本中的参数，可以复现论文表 3 中关于“仅DP”、“仅BAS”和“BAS-DP”的对比实验。
+- 通过调整脚本中的参数，可以复现论文表 3 中关于“仅DP”、“仅BAS”和“BAS-DP”的对比实验。
 
 ## 实验结果
- **Method**	          MAE↓  maxF1↑
- **U2Net (Baseline)**	0.045	0.868
- **U2Net++ (Ours)**	  0.038 0.892
+- **Method**	          MAE↓  maxF1↑
+- **U2Net (Baseline)**	0.045	0.868
+- **U2Net++ (Ours)**	  0.038 0.892
 ## 许可证与引用
 - 本项目仅限学术研究使用。
 - 如果本项目对你的工作有帮助，请引用相关论文
