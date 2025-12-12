@@ -82,11 +82,11 @@ python test.py --model saved_models/model_best.pth --input test_images/ --output
 ```
 ### 2. 生成轻量化标签 (DP & BAS)
 使用 label_gen.py 将分割图转换为 JSON 标注文件。
-- **消融研究**：该脚本包含 USE_DP 和 USE_BAS 开关，可独立验证不同后处理策略的效果。
+**消融研究**：该脚本包含 USE_DP 和 USE_BAS 开关，可独立验证不同后处理策略的效果。
 ```text
--python label_gen.py --input results/masks/ --output results/jsons/
+python label_gen.py --input results/masks/ --output results/jsons/
 ```
-- 通过调整脚本中的参数，可以复现论文表 3 中关于“仅DP”、“仅BAS”和“BAS-DP”的对比实验。
+通过调整脚本中的参数，可以复现论文表 3 中关于“仅DP”、“仅BAS”和“BAS-DP”的对比实验。
 
 ## 实验结果
 - **Method**	          MAE↓  maxF1↑
