@@ -61,8 +61,8 @@ def main(args):
     # 日志文件也加上实验名字，防止混淆
     results_file = f"results_{EXP_NAME}_{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}.txt"
 
-    train_dataset = DUTSDataset(args.data_path, train=True, transforms=SODPresetTrain([320, 320], crop_size=288))
-    val_dataset = DUTSDataset(args.data_path, train=False, transforms=SODPresetEval([320, 320]))
+    train_dataset = DUTSDataset(args.data_path, train=True, transforms=SODPresetTrain([512, 512], crop_size=512))
+    val_dataset = DUTSDataset(args.data_path, train=False, transforms=SODPresetEval([512, 512]))
 
     num_workers = 0
     train_data_loader = data.DataLoader(train_dataset,
@@ -84,7 +84,7 @@ def main(args):
     model.to(device)
 
     params_group = get_params_groups(model, weight_decay=args.weight_decay)
-    optimizer = torch.optim.AdamW(params_group, lr=args.lr, weight_decay=args.weight_decay)
+    optimizer = torch.optim.Adam(params_group, lr=args.lr, weight_decay=args.weight_decay)
     lr_scheduler = create_lr_scheduler(optimizer, len(train_data_loader), args.epochs,
                                        warmup=True, warmup_epochs=2)
 
@@ -148,9 +148,9 @@ def parse_args():
     # 请确认这里的数据路径是正确的！
     parser.add_argument("--data-path", default=r"C:\Users\Downloads\Lightweight-Annotation", help="DUTS root")
     parser.add_argument("--device", default="cuda", help="training device")
-    parser.add_argument("-b", "--batch-size", default=8, type=int)  # 建议设为 8 或 12
+    parser.add_argument("-b", "--batch-size", default=4, type=int)  # 建议设为 8 或 12
     parser.add_argument('--wd', '--weight-decay', default=5e-4, type=float, metavar='W', dest='weight_decay')
-    parser.add_argument("--epochs", default=150, type=int, metavar="N")  # 跑150轮
+    parser.add_argument("--epochs", default=400, type=int, metavar="N")  # 跑400轮
     parser.add_argument("--eval-interval", default=10, type=int)
     parser.add_argument('--lr', default=0.001, type=float)
     parser.add_argument('--print-freq', default=50, type=int)
