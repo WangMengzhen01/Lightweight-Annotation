@@ -56,18 +56,24 @@ DUTS-TE/
 (注意：训练时请将 --data-path 指向包含 DUTS-TR 的根目录)
 
 ## 🚀 训练与消融实验 (Training & Ablation)
-我们设计了统一的模型文件 u2net_pp.py，通过修改文件顶部的开关即可复现论文中的所有实验。
-### 1. 配置模型开关
+我们设计了统一的模型文件 u2net_pp.py，且已将train.py的默认参数对齐至论文实验配置。通过修改文件顶部的开关即可复现论文中的所有实验。
+### 1. 实验参数说明
+为了确保可复现性，本仓库的默认训练参数与论文保持一致：
+- **输入分辨率 (Input Resolution)**：512×512
+- **批次大小 (Batch Size)**：4
+- **训练轮次 (Epochs)**：400
+- **优化器 (Optimizer)**：Adam (lr=0.001)
+### 2. 配置模型开关
 打开**u2net_pp.py**，修改以下变量：
 实验目标	**USE_CBAM**	**USE_SE_SKIP**	说明
 - **Baseline** (原始 U2Net)	False	False	原始基准模型
 - **Only CBAM**	True	False	仅加入 CBAM 模块
 - **Only SE**	False	True	仅加入 SE 跳跃连接
 - **U2Net++** (Ours)	True	True	本文提出的最终模型
-### 2. 启动训练
+### 3. 启动训练
 修改好开关后，运行以下命令（每次实验建议修改代码中的 EXP_NAME 以区分保存路径）：
 ```text
-python train.py --data-path ./DUTS-TR --batch-size 4 --epochs 400
+python train.py --data-path ./DUTS-TR 
 ```
 ### 预训练权重
 - Baseline 权重：可通过上述脚本复现，或访问 U2Net官方GitHub。
